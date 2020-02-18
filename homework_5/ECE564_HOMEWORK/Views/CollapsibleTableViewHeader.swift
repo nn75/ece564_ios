@@ -73,5 +73,5 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
         //
         arrowLabel.rotate(collapsed ? 0.0 : .pi / 2)
     }
-
+    
 }

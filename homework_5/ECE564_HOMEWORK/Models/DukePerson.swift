@@ -9,22 +9,22 @@
 import Foundation
 import UIKit
 
-enum Gender: String,  Codable {
+enum Gender {
     case Male
     case Female
 }
 
-class Person: Codable {
+class Person {
     var firstName = "First"
     var lastName = "Last"
     var whereFrom = "Anywhere"  // this is just a free String - can be city, state, both, etc.
     var gender : Gender = .Male
 }
 
-enum DukeRole : String, Codable {
+enum DukeRole : String {
     case Student = "Student"
     case Professor = "Professor"
-    case TA = "Teaching Assistant"
+    case TA = "TA"
 }
 
 protocol ECE564 {
@@ -49,40 +49,33 @@ extension ECE564 {
     var id: String? {return nil}
 }
 
-//CustomStringConvertible,
-class DukePerson: NSObject, ECE564, Codable {
-    
-    
-    
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("DukePersonJSONFile_nn75")
-    
-    var firstName = "First"
-    var lastName = "Last"
-    var whereFrom = "Anywhere"
-    var gender : Gender = .Male
+var databasePath = NSString()
+var dukePersonsArray = [DukePerson]()
+
+class DukePerson: Person, ECE564, CustomStringConvertible {
     
     var hobbies: [String] = []
     var role: DukeRole = .Student
     var degree: String = ""
     var languages: [String] = []
     var team: String?
-    var picture = ""
+    var picture: String = ""
     
     override init() {
         super.init()
     }
     
-    init(f firstName: String,
-         l lastName: String,
-         w whereFrom: String,
-         g gender: Gender,
-         h hobbies : [String],
-         r role : DukeRole,
-         d degree : String,
-         l languages : [String],
-         t team: String,
-         p picture: String) {
+    init(firstName: String,
+         lastName: String,
+         whereFrom: String,
+         gender: Gender,
+         hobbies : [String],
+         role : DukeRole,
+         degree : String,
+         languages : [String],
+         team: String,
+         picture: String) {
+        super.init()
         self.firstName = firstName
         self.lastName = lastName
         self.whereFrom = whereFrom
@@ -93,12 +86,9 @@ class DukePerson: NSObject, ECE564, Codable {
         self.languages = languages
         self.picture = picture
         self.team = team
-        
-        super.init()
-
     }
     
-    override var description: String {
+    var description: String {
         let firstSentence = firstName + " " + lastName + " is from " + whereFrom + " and is a " + role.rawValue.lowercased() + ". "
         let secondSentence = (gender == Gender.Male ? "He" : "She") + " is proficient in " + languages.joined(separator: ", ") + ". "
         let thirdSentence = "When not in class, " + firstName + " enjoys " + hobbies.joined(separator: ", ") + ". \n"
@@ -112,126 +102,11 @@ class DukePerson: NSObject, ECE564, Codable {
         }
         return outputString
     }
-    
-    
-    static func saveDukePersonInfo(_ dukePersonList: [DukePerson]) -> Bool {
-        var outputData = Data()
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(dukePersonList) {
-            //if let json = String(data: encoded, encoding: .utf8) {
-            if let _ = String(data: encoded, encoding: .utf8) {
-                //print(json)
-                outputData = encoded
-            }
-            else { return false }
-            
-            do {
-                try outputData.write(to: ArchiveURL)
-            } catch let error as NSError {
-                print (error)
-                return false
-            }
-            return true
-        }
-        else { return false }
-    }
-    
-    static func loadDukePersonInfo() -> [DukePerson]? {
-        let decoder = JSONDecoder()
-        var dukePersons = [DukePerson]()
-        let tempData: Data
-        
-        do {
-            tempData = try Data(contentsOf: ArchiveURL)
-        } catch let error as NSError {
-            print(error)
-            return nil
-        }
-        if let decoded = try? decoder.decode([DukePerson].self, from: tempData) {
-            print(decoded[0].firstName)
-            dukePersons = decoded
-        }
-        return dukePersons
-    }
 }
 
-
-let RicTelford: DukePerson = DukePerson(f: "Ric",
-                                        l: "Telford",
-                                        w: "US",
-                                        g: .Male,
-                                        h: ["Swimming", "Biking", "Hiking"],
-                                        r: .Professor,
-                                        d: "BS",
-                                        l: ["Swift", "C", "C++"],
-                                        t: "",
-                                        p: UIImage(named: "Ric Telford")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let JingruGao: DukePerson = DukePerson(f: "Jingru",
-                                       l: "Gao",
-                                       w: "CN",
-                                       g: .Female,
-                                       h: ["Traveling", "Reading", "Movies"],
-                                       r: .TA,
-                                       d: "MS",
-                                       l: ["Swift", "C++", "Python"],
-                                       t: "",
-                                       p: UIImage(named: "Jingru Gao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let HaohongZhao: DukePerson = DukePerson(f: "Haohong",
-                                         l: "Zhao",
-                                         w: "CN",
-                                         g: .Male,
-                                         h: ["Reading", "Jogging"],
-                                         r: .TA,
-                                         d: "MS",
-                                         l: ["Swift","Python"],
-                                         t: "",
-                                         p: UIImage(named: "Haohong Zhao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let NanNi: DukePerson = DukePerson(f: "Nan",
-                                   l: "Ni",
-                                   w: "CN",
-                                   g: .Female,
-                                   h: ["Traveling", "Playing online games", "Cardio workout"],
-                                   r: .Student,
-                                   d: "MS",
-                                   l: ["C", "C++", "Swift"],
-                                   t: "HFTP",
-                                   p: UIImage(named: "Nan Ni")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let NiboYing: DukePerson = DukePerson(f: "Nibo",
-                                      l: "Ying",
-                                      w: "CN",
-                                      g: .Male,
-                                      h: ["Basketball"],
-                                      r: .Student,
-                                      d: "MS",
-                                      l: ["C++", "Swift"],
-                                      t: "HFTP",
-                                      p: UIImage(named: "Nibo Ying")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let ZihuiZheng: DukePerson = DukePerson(f: "Zihui",
-                                        l: "Zheng",
-                                        w: "CN",
-                                        g: .Male,
-                                        h: ["Video games", "Workout", "Basketball"],
-                                        r: .Student,
-                                        d: "MS",
-                                        l: ["C++", "Scala", "Swift"],
-                                        t: "HFTP",
-                                        p: UIImage(named: "Zihui Zheng")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-let KaiWang: DukePerson = DukePerson(f: "Kai",
-                                     l: "Wang",
-                                     w: "CN",
-                                     g: .Male,
-                                     h: ["Traveling", "Playing online games", "Cardio workout"],
-                                     r: .Student,
-                                     d: "MS",
-                                     l: ["C++", "Swift"],
-                                     t: "HFTP",
-                                     p: UIImage(named: "Kai Wang")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
-var dukePersonsArray = [RicTelford, JingruGao, HaohongZhao, NanNi, NiboYing, ZihuiZheng, KaiWang]
-
-
-//
-// To display in sections
-//
+/**
+ To display in sections
+ */
 struct DukePersonSection {
     var name: String
     var dukePersons: [DukePerson]
@@ -244,4 +119,101 @@ struct DukePersonSection {
     }
 }
 
+let RicTelford: DukePerson = DukePerson(firstName: "Ric",
+                                 lastName: "Telford",
+                                 whereFrom: "US",
+                                 gender: .Male,
+                                 hobbies: ["Swimming", "Biking", "Hiking"],
+                                 role: .Professor,
+                                 degree: "BS",
+                                 languages: ["Swift", "C", "C++"],
+                                 team: "",
+                                 picture: UIImage(named: "Ric Telford")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 
+let JingruGao: DukePerson = DukePerson(firstName: "Jingru",
+                                    lastName: "Gao",
+                                    whereFrom: "CN",
+                                    gender: .Female,
+                                    hobbies: ["Traveling", "Reading", "Movies"],
+                                    role: .TA,
+                                    degree: "MS",
+                                    languages: ["Swift", "C++", "Python"],
+                                    team: "",
+                                    picture: UIImage(named: "Jingru Gao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+let HaohongZhao: DukePerson = DukePerson(firstName: "Haohong",
+                                     lastName: "Zhao",
+                                     whereFrom: "CN",
+                                     gender: .Male,
+                                     hobbies: ["Reading", "Jogging"],
+                                     role: .TA,
+                                     degree: "MS",
+                                     languages: ["Swift","Python"],
+                                     team: "",
+                                     picture: UIImage(named: "Haohong Zhao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+let NanNi: DukePerson = DukePerson(firstName: "Nan",
+                                 lastName: "Ni",
+                                 whereFrom: "CN",
+                                 gender: .Female,
+                                 hobbies: ["Traveling", "Playing online games", "Cardio workout"],
+                                 role: .Student,
+                                 degree: "MS",
+                                 languages: ["C", "C++", "Swift"],
+                                 team: "HFTP",
+                                 picture: UIImage(named: "Nan Ni")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+let NiboYing: DukePerson = DukePerson(firstName: "Nibo",
+                                      lastName: "Ying",
+                                      whereFrom: "CN",
+                                      gender: .Male,
+                                      hobbies: ["Basketball"],
+                                      role: .Student,
+                                      degree: "MS",
+                                      languages: ["C++", "Swift"],
+                                      team: "HFTP",
+                                      picture: UIImage(named: "Nibo Ying")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+let ZihuiZheng: DukePerson = DukePerson(firstName: "Zihui",
+                                        lastName: "Zheng",
+                                        whereFrom: "CN",
+                                        gender: .Male,
+                                        hobbies: ["Video games", "Workout", "Basketball"],
+                                        role: .Student,
+                                        degree: "MS",
+                                        languages: ["C++", "Scala", "Swift"],
+                                        team: "HFTP",
+                                        picture: UIImage(named: "Zihui Zheng")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+let KaiWang: DukePerson = DukePerson(firstName: "Kai",
+                                     lastName: "Wang",
+                                     whereFrom: "CN",
+                                     gender: .Male,
+                                     hobbies: ["Traveling", "Playing online games", "Cardio workout"],
+                                     role: .Student,
+                                     degree: "MS",
+                                     languages: ["C++", "Swift"],
+                                     team: "HFTP",
+                                     picture: UIImage(named: "Kai Wang")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
+
+//MARK: - Tool For Json [String]
+func convertJSONStringFromArray(_ arr: NSArray) -> String {
+    
+    if (!JSONSerialization.isValidJSONObject(arr)) {
+        print("Cannot convert array into string!")
+        return ""
+    }
+    let data : NSData! = try? JSONSerialization.data(withJSONObject: arr, options: []) as NSData?
+    let JSONString = NSString(data:data as Data,encoding: String.Encoding.utf8.rawValue)
+    return JSONString! as String
+}
+
+//MARK: - Tool For [String] Json
+func convertArrayFromJSONString(_ jsonStr: String) -> NSArray {
+    let jsonData:Data = jsonStr.data(using: .utf8)!
+    let arr = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+    if arr != nil {
+        return arr as! NSArray
+    }
+    return arr as! NSArray
+}

@@ -8,37 +8,6 @@
 
 import UIKit
 
-//MARK: - Change UImage quality & size
-extension UIImage {
-    func resizeImage(resize: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(resize,false,UIScreen.main.scale)
-        self.draw(in: CGRect(x: 0, y: 0, width: resize.width, height: resize.height))
-        let resizeImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return resizeImage
-    }
-    func scaleImage(scaleSize: CGFloat) -> UIImage {
-        let resize = CGSize(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
-        return resizeImage(resize: resize)
-    }
-}
-
-//MARK: - Encode: Convert UIImage to String
-extension UIImage {
-    public func base64ToString() -> String {
-        let imageData: Data = self.jpegData(compressionQuality: 0.1)!
-        return imageData.base64EncodedString(options: .lineLength64Characters)
-    }
-}
-
-//MARK: - Decode: Convert String into UIImage
-extension String {
-    public func base64ToImage() -> UIImage {
-        let dataDecode = Data(base64Encoded: self, options: .ignoreUnknownCharacters)!
-        return UIImage(data: dataDecode)!
-    }
-}
-
 //MARK: - Dismiss keyboard
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -64,7 +33,7 @@ extension UIView {
         
         self.layer.add(animation, forKey: nil)
     }
-
+    
 }
 
 //MARK: - Change appearance of UITextField
@@ -75,3 +44,42 @@ extension UITextField {
     }
 }
 
+//MARK: - Convert UIImage into String
+extension UIImage {
+    func base64ToString() -> String {
+        let imageData: Data = self.jpegData(compressionQuality: 0.1)!
+        return imageData.base64EncodedString(options: .lineLength64Characters)
+    }
+}
+
+//MARK: - Convert String into UIImage
+extension String {
+    func base64ToImage() -> UIImage {
+        let dataDecode = Data(base64Encoded: self, options: .ignoreUnknownCharacters)!
+        return UIImage(data: dataDecode)!
+    }
+}
+
+//MARK: - Change UImage quality & size
+extension UIImage {
+    func resizeImage(resize: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(resize,false,UIScreen.main.scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: resize.width, height: resize.height))
+        let resizeImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return resizeImage
+    }
+    func scaleImage(scaleSize: CGFloat) -> UIImage {
+        let resize = CGSize(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
+        return resizeImage(resize: resize)
+    }
+}
+
+//MARK: - Alert
+extension UIViewController {
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+}

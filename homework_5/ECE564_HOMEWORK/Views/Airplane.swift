@@ -9,17 +9,17 @@
 import UIKit
 
 class Airplane: UIView {
-
+    
     override func draw(_ rect: CGRect) {
         var path: UIBezierPath!
         path = UIBezierPath()
         path.move(to: CGPoint(x: 100, y: 0))
         let pencilDot: [[Int]] = [[80,20],[80,60],[0,130],[0,150],[80,90],[80,130],[98,200],
-        [100,200],[102,200],[120,130],[120,90],[200,150],[200,130],[120,60],[120,20]]
+                                  [100,200],[102,200],[120,130],[120,90],[200,150],[200,130],[120,60],[120,20]]
         for point in pencilDot {
             path.addLine(to: CGPoint(x: point[0], y: point[1]))
         }
-
+        
         path.close()
         let r = UIGraphicsImageRenderer(size:CGSize(width: 6,height: 6))
         let stripes = r.image {

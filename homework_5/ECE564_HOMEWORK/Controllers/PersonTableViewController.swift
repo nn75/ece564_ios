@@ -14,13 +14,12 @@ class PersonTableViewController: UITableViewController {
     
     //Pass to InformationViewController as a reference
     var selectedPerson: DukePerson?
-    var newPerson: DukePerson = DukePerson()
+    var newPerson = DukePerson()
     
     //For search
     var filteredDukePersons: [DukePerson] = []
     let searchController = UISearchController(searchResultsController: nil)
     
-    //For section display
     var dukePersonsSection: [DukePersonSection] = [
         DukePersonSection(name: "Professor", dukePersons: []),
         DukePersonSection(name: "TA", dukePersons: []),
@@ -29,32 +28,28 @@ class PersonTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(DukePerson.ArchiveURL)
-        loadInitialData()
-        loadDukePersonSections()
         
-        // Set table view cell
+        /**
+         init sqlite
+         */
+        if initDukePersonDB() {
+            for new in findAllFromDB() {
+                dukePersonsArray.append(new)
+            }
+        } else {
+            self.showAlert(title: "Warning", message: "Init Database Failed")
+        }
+        
+        loadDukePersonSections()
         personTableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         personTableView.dataSource = self
-        
-        
-        // Set search
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search ECE564"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        searchController.searchBar.scopeButtonTitles = ["All", "MS", "BS", "MENG", "PHD", "NA", "Other"]
+        searchController.searchBar.scopeButtonTitles = K.category
         searchController.searchBar.delegate = self
-    }
-    
-    func loadInitialData() {
-        if let dukePersons = DukePerson.loadDukePersonInfo() {
-            dukePersonsArray = dukePersons
-        } else {
-            //Save the initial dukePersonsArray[Ric, Jingru, Haohong, Nan] to disk.
-            let _ = DukePerson.saveDukePersonInfo(dukePersonsArray)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +76,9 @@ class PersonTableViewController: UITableViewController {
                 filteredDukePersons.append(dukePersonsSection[i].dukePersons[j])
             }
         }
-        // Filter both by search bar and search category
+        /**
+         Filter both by search bar and search category
+         */
         filteredDukePersons = filteredDukePersons.filter({ (p: DukePerson) -> Bool in
             let doesCategoryMatch = category == "All" || p.degree == category
             if isSearchBarEmpty {
@@ -93,12 +90,10 @@ class PersonTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    
-    //
-    //Add persons in flat array to section
-    //
+    /**
+     Add persons in flat array to section
+     */
     func loadDukePersonSections() {
-        let _ = DukePerson.saveDukePersonInfo(dukePersonsArray)
         for i in (0 ... dukePersonsSection.count - 1).reversed() {
             if dukePersonsSection[i].name == "Professor" || dukePersonsSection[i].name == "TA" || dukePersonsSection[i].name == "Student" {
                 dukePersonsSection[i].dukePersons.removeAll()
@@ -129,12 +124,15 @@ class PersonTableViewController: UITableViewController {
                     }
                 }
                 if teamExist == false {
-                    dukePersonsSection.append(DukePersonSection(name: teamName!, dukePersons: [person]))
+                    if let safeteamName = teamName {
+                        dukePersonsSection.append(DukePersonSection(name: safeteamName, dukePersons: [person]))
+                    } else {
+                        print("Please delete the database file and start again.")
+                    }
                 }
             }
         }
     }
-    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -155,8 +153,7 @@ class PersonTableViewController: UITableViewController {
                 if let destination = segue.destination as? UINavigationController {
                     let informationVC  = destination.viewControllers[0] as! InformationViewController
                     informationVC.mode = .Adding
-                    //Important! Create a new person
-                    newPerson = DukePerson()
+                    newPerson = DukePerson() //Important! Create a new person
                     informationVC.person = newPerson
                     informationVC.teamHide = true
                 }
@@ -169,22 +166,18 @@ class PersonTableViewController: UITableViewController {
     @IBAction func returnFromInformationView(segue: UIStoryboardSegue) {
         let source: InformationViewController = segue.source as! InformationViewController
         if source.mode == .Adding {
-            if source.cancelButtonPressed || source.backButtonPressed {
-                loadDukePersonSections()
-            } else {
+            if !source.cancelButtonPressed && !source.backButtonPressed {
                 dukePersonsArray.append(newPerson)
-                loadDukePersonSections()
+                let _ = insertDB(newPerson)
             }
-        } else if source.mode == .Displaying {
-            loadDukePersonSections()
         }
+        loadDukePersonSections()
         self.tableView.reloadData()
     }
 }
 
 
 // MARK: - Table view data source
-
 extension PersonTableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if isFiltering {
@@ -206,7 +199,9 @@ extension PersonTableViewController {
         }
     }
     
-    //For cell
+    /**
+     For cell
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! PersonTableViewCell
         
@@ -240,7 +235,9 @@ extension PersonTableViewController {
     }
     
     
-    //For header
+    /**
+     For table view header
+     */
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isFiltering {
             return nil
@@ -264,9 +261,10 @@ extension PersonTableViewController {
         return 35.0
     }
     
-    //For swipe
-    override func tableView(_ tableView: UITableView,
-                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    /**
+     For swipe
+     */
+    override func tableView(_ tableView: UITableView,trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let modifyAction = UIContextualAction(style: .normal, title:  "Edit", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             if self.isFiltering {
@@ -278,6 +276,7 @@ extension PersonTableViewController {
             self.performSegue(withIdentifier: K.editSegue, sender: indexPath)
             success(true)
         })
+        
         modifyAction.backgroundColor = UIColor(named: K.BrandColors.gray)
         modifyAction.image = UIImage(named: "Edit")
         
@@ -290,24 +289,22 @@ extension PersonTableViewController {
                 personToDelete = self.dukePersonsSection[indexPath.section].dukePersons[indexPath.row]
                 self.dukePersonsSection[indexPath.section].dukePersons.remove(at: indexPath.row)
             }
-            
             dukePersonsArray.removeAll{ $0.firstName == personToDelete.firstName && $0.lastName == personToDelete.lastName}
-            self.loadDukePersonSections()
-            
+            if deleteDB(personToDelete.firstName, personToDelete.lastName) {
+                self.loadDukePersonSections()
+            }
+            //print("----- After deletion -----")
+            //print(self.dukePersonsSection)
             tableView.reloadData()
             success(true)
         })
         deleteAction.backgroundColor = UIColor.red
         deleteAction.image = UIImage(named: "Delete")
-        
         return UISwipeActionsConfiguration(actions: [deleteAction, modifyAction])
     }
     
     
 }
-
-
-// MARK: - Search controller
 
 extension PersonTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -324,21 +321,13 @@ extension PersonTableViewController: UISearchBarDelegate {
 }
 
 
-
-
 // MARK: - Section Header Delegate
-
 extension PersonTableViewController: CollapsibleTableViewHeaderDelegate {
-    
     func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
         let collapsed = !dukePersonsSection[section].collapsed
-        
-        // Toggle collapse
         dukePersonsSection[section].collapsed = collapsed
         header.setCollapsed(collapsed)
-        
         tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
     }
-    
 }
 

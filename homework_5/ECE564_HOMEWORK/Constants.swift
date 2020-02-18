@@ -20,6 +20,7 @@ struct K {
     static let editSegue = "goToPersonInfo"
     static let addSegue = "goToAddPerson"
     static let saveBackSegue = "saveBackToTable"
+    static let category = ["All", "MS", "BS", "MENG", "PHD", "NA", "Other"]
     
     struct BrandColors {
         static let darkBlue = "BrandDarkBlue"

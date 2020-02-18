@@ -87,7 +87,7 @@ class HobbyViewController: UIViewController {
         airLine.frame = CGRect(x: 50, y: 200, width: 200, height: 200)
         airLine.backgroundColor = UIColor.clear
         self.view.addSubview(airLine)
-    
+        
         let originalCenter = airLine.center
         let animatorShrink = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) { [airLine] in
             airLine.transform = CGAffineTransform(rotationAngle: 0).scaledBy(x: 0.1, y: 0.1)
@@ -102,15 +102,15 @@ class HobbyViewController: UIViewController {
         }
         animatorShrink.startAnimation()
         airLine.self.isHidden = true
-    
+        
         animatorShrink.addCompletion { _ in
             animatorShrink.stopAnimation(true)
             animatorEnlarge.startAnimation()
             animatorMove.startAnimation()
             airLine.self.isHidden = false
-
+            
         }
-    
+        
         animatorEnlarge.addCompletion { _ in
             self.sloganLabel.isHidden = true
             animatorEnlarge.stopAnimation(true)
@@ -136,7 +136,7 @@ class HobbyViewController: UIViewController {
         sun = Sun(frame: CGRect(x: -40, y: 600, width: 150, height: 150))
         view.addSubview(sun)
     }
-
+    
     
     func animateSun() {
         colorView.backgroundColor = #colorLiteral(red: 0.03222545981, green: 0.02074555866, blue: 0.009296458215, alpha: 0.8953230574)
@@ -144,13 +144,13 @@ class HobbyViewController: UIViewController {
                        animations: {
                         self.colorView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         }, completion: { _ in
-          self.colorView.backgroundColor = #colorLiteral(red: 0.03222545981, green: 0.02074555866, blue: 0.009296458215, alpha: 0.8953230574)
+            self.colorView.backgroundColor = #colorLiteral(red: 0.03222545981, green: 0.02074555866, blue: 0.009296458215, alpha: 0.8953230574)
         })
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: -50, y: 400))
         path.addQuadCurve(to: CGPoint(x: 450, y: 400), controlPoint: CGPoint(x: 250, y: 10) )
-
+        
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
@@ -164,7 +164,7 @@ class HobbyViewController: UIViewController {
         moveAlongPath.calculationMode = CAAnimationCalculationMode.paced
         moveAlongPath.timingFunctions = [CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)]
         self.moveAlongPath = moveAlongPath
-
+        
         let sunLayer = sun.layer
         sunLayer.bounds = CGRect(x: 0, y: 0, width: 150, height: 150)
         sunLayer.position = CGPoint(x: -40, y: 400)

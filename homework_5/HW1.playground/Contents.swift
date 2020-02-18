@@ -18,7 +18,7 @@ class Person {
 enum DukeRole : String {
     case Student = "Student"
     case Professor = "Professor"
-    case TA = "Teaching Assistant"
+    case TA = "TA"
 }
 
 protocol ECE564 {

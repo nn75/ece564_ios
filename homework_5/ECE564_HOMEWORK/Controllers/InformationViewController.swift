@@ -9,14 +9,16 @@
 import UIKit
 import MobileCoreServices
 
-// The mode of information view
+/**
+ The mode of information view
+ */
 enum Mode {
     case Adding     //Add new person
     case Updating   //Edit person
     case Displaying //Display information, cannot edit
 }
 
-class InformationViewController: UIViewController,UINavigationBarDelegate {
+class InformationViewController: UIViewController, UINavigationBarDelegate {
     var mode: Mode = .Displaying
     var person = DukePerson()
     var teamHide = false
@@ -32,7 +34,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     var rolePickerView: UIPickerView!
     var degreePickerView: UIPickerView!
     var imagePickerController : UIImagePickerController!
-
+    
     @IBOutlet weak var saveButtonView: UIView!    
     @IBOutlet weak var editAndCancelButton: UIBarButtonItem!
     
@@ -56,7 +58,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         addPickersToView()
         addImagePickerToView()
         
@@ -126,7 +128,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     // MARK: - Navigation
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if addOrUpdateSuccess {
-           return true
+            return true
         }
         return false
     }
@@ -164,9 +166,9 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         }
     }
     
-    //
-    // Fill fields with person's information
-    //
+    /**
+     Fill in person's information
+     */
     func resetPersonInformation() {
         photoImageView.image = person.picture.base64ToImage()
         fullNameLabel.text = ""
@@ -199,9 +201,10 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         }
     }
     
-    //
-    // Save person's information
-    //
+
+    /**
+     Save person's information
+     */
     func addOrUpdatePerson() -> Bool {
         //Invalid case 1: Empty fields
         if  ((firstNameTextField.text?.isEmpty)!
@@ -210,38 +213,37 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
             || (roleTextField.text?.isEmpty)!
             || (fromTextField.text?.isEmpty)!
             || (degreeTextField.text?.isEmpty)!) {
-            showAlert(title: "Save failed", message: "All fields with * are required!")
+            self.showAlert(title: "Save failed", message: "All fields with * are required!")
             return false
         }
         
-        //Debug: To solve the bug!
-        //Invalid case 2: Person exists
+        //Invalid case 2: Person already exists
         let fullNameResult = dukePersonsArray.filter { $0.firstName == firstNameTextField.text! && $0.lastName == lastNameTextField.text! }
         if mode == .Adding && !fullNameResult.isEmpty {
-            showAlert(title: "Save failed", message: "\(firstNameTextField.text!) \(lastNameTextField.text!) already exists in database!")
+            self.showAlert(title: "Save failed", message: "\(firstNameTextField.text!) \(lastNameTextField.text!) already exists in database!")
             return false
         }
         
         //Invalid case 3: More than 3 hobbies or languages
         let hobbies: [String] = hobbiesTextField.text!.components(separatedBy: ",")
         if hobbies.count > 3 {
-            showAlert(title: "Save failed", message: "Hobbies: Up to 3 hobbies!")
+            self.showAlert(title: "Save failed", message: "Hobbies: Up to 3 hobbies!")
             return false
         }
         
         let languages: [String] = languagesTextField.text!.components(separatedBy: ",")
         if languages.count > 3 {
-            showAlert(title: "Save failed", message: "Hobbies: Up to 3 languages!")
+            self.showAlert(title: "Save failed", message: "Hobbies: Up to 3 languages!")
             return false
         }
         
         
-         // All inputs are valid
+        // All inputs are valid
         let genderText = genderTextField.text!
         if genderText == "Female" {
-             person.gender = .Female
+            person.gender = .Female
         } else {
-             person.gender = .Male
+            person.gender = .Male
         }
         
         let roleText = roleTextField.text!
@@ -252,7 +254,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         } else if roleText == "Professor" {
             person.role = .Professor
         }
-        person.picture = photoImageView.image?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? ""
+        person.picture = photoImageView.image!.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString()
         person.firstName = firstNameTextField.text!
         person.lastName = lastNameTextField.text!
         person.whereFrom = fromTextField.text!
@@ -260,7 +262,16 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         person.team = teamTextField.text!
         person.hobbies = hobbies
         person.languages = languages
-        return true
+        var updateSuccess = true
+        if mode == .Displaying {
+            let p = findOneFromDB(person.firstName, person.lastName)
+            if p.firstName == "First" && p.lastName == "Last" {
+                updateSuccess = insertDB(self.person)
+            } else {
+                updateSuccess = updateDB(self.person)
+            }
+        }
+        return true && updateSuccess
     }
     
     
@@ -378,7 +389,7 @@ extension InformationViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
-
+        
         if pickerView.tag == 1 {
             label.text = genders[row]
         } else if pickerView.tag == 2 {
@@ -406,15 +417,6 @@ extension InformationViewController:  UINavigationControllerDelegate, UIImagePic
     }
 }
 
-
-//MARK: - Alert
-extension InformationViewController {
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-}
 
 //MARK: -Textfield
 extension InformationViewController: UITextFieldDelegate {
