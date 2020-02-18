@@ -65,7 +65,8 @@ func initDukePersonDB() -> Bool {
         dukePersonDB?.close()
     }
     response = true
-    print("SQLInfo: DukePersonDB is running...\n" + (docsDir as String))
+    print("SQLInfo: DukePersonDB is running...\n")
+    print("Path of DukePersonDBFile_nn75 is: \n" + (docsDir as String))
     return response
 }
 

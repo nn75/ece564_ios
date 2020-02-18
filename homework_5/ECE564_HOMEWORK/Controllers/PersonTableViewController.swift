@@ -127,7 +127,8 @@ class PersonTableViewController: UITableViewController {
                     if let safeteamName = teamName {
                         dukePersonsSection.append(DukePersonSection(name: safeteamName, dukePersons: [person]))
                     } else {
-                        print("Please delete the database file and start again.")
+                        print("DB field changed: Please delete DukePersonDBFile_nn75 at its path and start again!")
+                        return 
                     }
                 }
             }
