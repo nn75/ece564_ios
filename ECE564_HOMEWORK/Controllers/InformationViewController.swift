@@ -18,7 +18,7 @@ enum Mode {
 
 class InformationViewController: UIViewController,UINavigationBarDelegate {
     var mode: Mode = .Displaying
-    var person = DukePerson(f: "", l: "", w: "", g: .Male, h: [], r: .Professor, d: "", l: [""], t: "", p: "")
+    var person = DukePerson()
     var teamHide = false
     
     var backButtonPressed = false

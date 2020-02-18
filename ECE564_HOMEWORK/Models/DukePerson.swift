@@ -55,7 +55,7 @@ class DukePerson: NSObject, ECE564, Codable {
     
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("DukePersonJSONFile")
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("DukePersonJSONFile_nn75")
     
     var firstName = "First"
     var lastName = "Last"

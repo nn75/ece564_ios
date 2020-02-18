@@ -14,7 +14,7 @@ class PersonTableViewController: UITableViewController {
     
     //Pass to InformationViewController as a reference
     var selectedPerson: DukePerson?
-    var newPerson: DukePerson = DukePerson(f: "", l: "", w: "", g: .Male, h: [], r: .Professor, d: "", l: [""], t: "", p: "")
+    var newPerson: DukePerson = DukePerson()
     
     //For search
     var filteredDukePersons: [DukePerson] = []
@@ -156,7 +156,7 @@ class PersonTableViewController: UITableViewController {
                     let informationVC  = destination.viewControllers[0] as! InformationViewController
                     informationVC.mode = .Adding
                     //Important! Create a new person
-                    newPerson = DukePerson(f: "", l: "", w: "", g: .Male, h: [], r: .Professor, d: "", l: [""], t: "", p: "")
+                    newPerson = DukePerson()
                     informationVC.person = newPerson
                     informationVC.teamHide = true
                 }
