@@ -60,7 +60,7 @@ extension String {
     }
 }
 
-//MARK: - Change UImage quality & size
+//MARK: - Change UIImage quality & size
 extension UIImage {
     func resizeImage(resize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(resize,false,UIScreen.main.scale)

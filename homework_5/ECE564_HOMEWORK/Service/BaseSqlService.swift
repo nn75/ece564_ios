@@ -180,7 +180,7 @@ func insertDB(_ person: DukePerson) -> Bool {
             print("SQLError 3: \(String(describing: dukePersonDB?.lastErrorMessage()))")
         } else {
             response = true
-            print("SQLInfo: " + person.firstName + " is inserted into db successfully!")
+            print("SQLInfo: " + "\(person.firstName) \(person.lastName)" + " is inserted into db successfully!")
         }
     } else {
         print("SQLError 3: \(String(describing: dukePersonDB?.lastErrorMessage()))")
