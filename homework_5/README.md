@@ -61,7 +61,7 @@ This is your README file - you need to add any info for each homework that you w
     (6) Extensive Error Checking: The 8 kinds of error handling of previous assignments has been retained.
 
 
-### **HW4 - **
+### HW4 - 
 #### 1. The required functionalities are all completed:
     (1) Add page view, which can be flipped forward and back.
     (2) Enable and disable flipping according to hobby -- **Traveling**.
@@ -78,4 +78,18 @@ This is your README file - you need to add any info for each homework that you w
     
     
 
-### HW5 -
+### **HW5 - **
+#### 1. The required functionalities are all completed:
+    (1) JSONEncoder/JSONDecoder support: Save and load the array of DukePerson to make it persists from session to session.
+    (2) Team support:  In the Edit mode of the Information View, be able to prompt for Team name for the Person (which is an optional field). If a student does not have a team, leave it in the "Student" section. Add my teammates of "HFTP" team to default set of table entries that appear when user first bring up the app. On the Table View, sort students under Team Name cell, which is a separator cell that is called "HFTP".
+    (3) Search support: Use both search bar text field and scope button to search all fields of person.
+    (4) EditingStyle support: Swipe left to delete or edit person.
+    (5) Picture support: Add an Image view to Table Cell to show pictures in the Table View. Add an Image view on the Information view for Nan Ni, my teammates, the TAs and the Professor. Add support for picking a picture from the camera roll to the Add view and the Edit view. Add support for the picture property (which is a string) in the ECE564 protocol to DukePerson.  Encode picture from UIImage to base64 string before JSON encoding and decode base64 string to UIImage for displaying after JSON decoding. Make sure the picture is not too big – keep it at 100 dpi and no bigger than 2x2 inches.
+    
+#### 2. Functionalities for bonus points
+##### Important: The guide for how to test those funtionalities are in the Test Documentation, please click [here!!!](https://gitlab.oit.duke.edu/nn75/ece564_homework/blob/master/Test_Document/test_document.md).
+    (1) More complex search: Use both search bar text field and scope button to search all fields of person.
+    (3) More options on the “Swipe Left” or “Swipe Right” of a table entry.
+    (4) Implement a different way to save/retrieve in addition to supporting JSONEncoder: SQL
+    (6) Camera support to take pictures from the Add or Edit view: Use the right APIs to shrink the picture down to 100 dpi and 2x2 inches or less so they are not too big for JSONEncoder.
+

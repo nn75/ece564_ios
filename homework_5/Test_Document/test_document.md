@@ -94,7 +94,7 @@ extension UIImage {
 
 ## **Additional Functions**
 
-### **1. More complex Search**
+### **1. More complex search**
 - Complex search is mentioned in the basic function - **"3. Search support"**.
 - Detail1: Search all fields: users can search for first name, last name, full name, role, from where, hobby and language.
 - Detail2: Have multiple search fields: user can press scope button to search for degree.

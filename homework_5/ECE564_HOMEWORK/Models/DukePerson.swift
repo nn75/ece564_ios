@@ -217,3 +217,46 @@ func convertArrayFromJSONString(_ jsonStr: String) -> NSArray {
     }
     return arr as! NSArray
 }
+
+
+
+/**
+ JSON code
+ */
+//static func saveDukePersonInfo(_ dukePersonList: [DukePerson]) -> Bool {
+//    var outputData = Data()
+//    let encoder = JSONEncoder()
+//    if let encoded = try? encoder.encode(dukePersonList) {
+//        if let _ = String(data: encoded, encoding: .utf8) {
+//            outputData = encoded
+//        }
+//        else { return false }
+//
+//        do {
+//            try outputData.write(to: ArchiveURL)
+//        } catch let error as NSError {
+//            print (error)
+//            return false
+//        }
+//        return true
+//    }
+//    else { return false }
+//}
+
+//static func loadDukePersonInfo() -> [DukePerson]? {
+//    let decoder = JSONDecoder()
+//    var dukePersons = [DukePerson]()
+//    let tempData: Data
+//
+//    do {
+//        tempData = try Data(contentsOf: ArchiveURL)
+//    } catch let error as NSError {
+//        print(error)
+//        return nil
+//    }
+//    if let decoded = try? decoder.decode([DukePerson].self, from: tempData) {
+//        print(decoded[0].firstName)
+//        dukePersons = decoded
+//    }
+//    return dukePersons
+//}
