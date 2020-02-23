@@ -29,6 +29,8 @@ class PersonTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         print(DukePerson.ArchiveURL)
         loadInitialData()
         loadDukePersonSections()
