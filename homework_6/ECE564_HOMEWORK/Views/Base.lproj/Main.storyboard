@@ -38,6 +38,22 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="oSJ-Gv-RD1">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Fetching ECE564 Data ... ">
+                                <attributes>
+                                    <color key="NSColor" red="0.2500272691" green="0.43677026029999999" blue="0.68238085510000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <font key="NSFont" metaFont="message" size="11"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <connections>
+                            <action selector="refreshData:" destination="jm7-U4-Bte" eventType="valueChanged" id="30q-hq-n6U"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <outlet property="personTableView" destination="KsU-Ik-Yhq" id="vfE-WB-uAy"/>
                         <segue destination="dek-wb-ewL" kind="presentation" identifier="goToPersonInfo" id="XnQ-1S-xuZ"/>
@@ -74,9 +90,9 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="140"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Person" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS5-pS-Oqw">
-                                        <rect key="frame" x="25" y="0.0" width="160" height="140"/>
+                                        <rect key="frame" x="25" y="0.0" width="200" height="140"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="afr-wQ-Hzk"/>
+                                            <constraint firstAttribute="width" constant="200" id="afr-wQ-Hzk"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="27"/>
                                         <color key="textColor" name="BrandBlue"/>
@@ -90,9 +106,9 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="netid@duke.edu" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-9d-amS">
-                                        <rect key="frame" x="25" y="85" width="160" height="20.5"/>
+                                        <rect key="frame" x="25" y="85" width="200" height="20.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="wBF-ox-JyY"/>
+                                            <constraint firstAttribute="width" constant="200" id="wBF-ox-JyY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="BrandDarkBlue"/>
@@ -101,8 +117,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="vUj-9d-amS" firstAttribute="top" secondItem="dVa-9m-i6X" secondAttribute="top" constant="85" id="Drt-TY-dfo"/>
-                                    <constraint firstItem="0K9-Q7-KPd" firstAttribute="leading" secondItem="vUj-9d-amS" secondAttribute="trailing" constant="60" id="Myf-RD-y51"/>
-                                    <constraint firstItem="0K9-Q7-KPd" firstAttribute="leading" secondItem="DS5-pS-Oqw" secondAttribute="trailing" constant="60" id="eCF-Rf-esi"/>
+                                    <constraint firstItem="0K9-Q7-KPd" firstAttribute="leading" secondItem="vUj-9d-amS" secondAttribute="trailing" constant="20" id="Myf-RD-y51"/>
+                                    <constraint firstItem="0K9-Q7-KPd" firstAttribute="leading" secondItem="DS5-pS-Oqw" secondAttribute="trailing" constant="20" id="eCF-Rf-esi"/>
                                     <constraint firstAttribute="bottom" secondItem="DS5-pS-Oqw" secondAttribute="bottom" id="fzm-EF-0Be"/>
                                     <constraint firstItem="vUj-9d-amS" firstAttribute="leading" secondItem="dVa-9m-i6X" secondAttribute="leading" constant="25" id="iGD-e3-Lkp"/>
                                     <constraint firstItem="DS5-pS-Oqw" firstAttribute="leading" secondItem="dVa-9m-i6X" secondAttribute="leading" constant="25" id="keR-jP-u39"/>
@@ -115,7 +131,7 @@
                                 <rect key="frame" x="0.0" y="196" width="375" height="451"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mSp-su-ddj" userLabel="Main Stack View">
-                                        <rect key="frame" x="20" y="20" width="335" height="730"/>
+                                        <rect key="frame" x="20" y="20" width="335" height="878"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-EJ-vFM" userLabel="First Name Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="64"/>
@@ -163,8 +179,31 @@
                                                     <constraint firstAttribute="trailing" secondItem="YNy-bA-QVZ" secondAttribute="trailing" id="XAv-8G-GDI"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BZf-JP-upq" userLabel="Gender Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="m1r-lH-4jQ" userLabel="Netid Stack View">
                                                 <rect key="frame" x="0.0" y="148" width="335" height="64"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Netid:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9Q-zf-zzR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="Pho-dw-4f3"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Duke netid" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="riM-7W-jAP">
+                                                        <rect key="frame" x="0.0" y="30" width="335" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="p9Q-zf-zzR" secondAttribute="trailing" id="Y7G-iG-RsT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="riM-7W-jAP" secondAttribute="trailing" id="dF6-DB-Jxn"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BZf-JP-upq" userLabel="Gender Stack View">
+                                                <rect key="frame" x="0.0" y="222" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Gender:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LY6-eS-tEL">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -187,7 +226,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pk8-tH-hU4" userLabel="Email Stack View">
-                                                <rect key="frame" x="0.0" y="222" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="296" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1W-6D-iAF">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -210,7 +249,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="c6W-Sk-qoJ" userLabel="Role Stack View">
-                                                <rect key="frame" x="0.0" y="296" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="370" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Role:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVa-E8-ToN">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -233,7 +272,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1eK-mf-ndI" userLabel="From Stack View">
-                                                <rect key="frame" x="0.0" y="370" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="444" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBJ-VH-dFT">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -256,7 +295,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2Rf-KM-dKh" userLabel="Degree Stack View">
-                                                <rect key="frame" x="0.0" y="444" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="518" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Degree:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYn-6f-iiS">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -278,8 +317,31 @@
                                                     <constraint firstAttribute="trailing" secondItem="Df2-gT-e3y" secondAttribute="trailing" id="6fO-lT-Udn"/>
                                                 </constraints>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LzS-6B-pRE" userLabel="Department Stack View">
+                                                <rect key="frame" x="0.0" y="592" width="335" height="64"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Department:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UT2-ML-uDw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="2AE-KF-9qD"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Duke department name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Xk-R3-vBo">
+                                                        <rect key="frame" x="0.0" y="30" width="335" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="UT2-ML-uDw" secondAttribute="trailing" id="b0b-LV-Ibi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3Xk-R3-vBo" secondAttribute="trailing" id="dAd-jB-ncp"/>
+                                                </constraints>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gR0-9A-AAH" userLabel="Hobbies Stack View">
-                                                <rect key="frame" x="0.0" y="518" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="666" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hobbies:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDT-q7-Zwm" userLabel="Hobbies:">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -302,7 +364,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iMy-7G-ciE" userLabel="Languages Stack View">
-                                                <rect key="frame" x="0.0" y="592" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="740" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Languages:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sia-EK-INe">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -325,7 +387,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ox3-rH-f95" userLabel="Team Stack View">
-                                                <rect key="frame" x="0.0" y="666" width="335" height="64"/>
+                                                <rect key="frame" x="0.0" y="814" width="335" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgH-l7-ZbX">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -421,6 +483,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="degreeTextField" destination="Df2-gT-e3y" id="0Pb-3Q-Egy"/>
+                        <outlet property="departmentTextField" destination="3Xk-R3-vBo" id="yoV-J4-4hl"/>
                         <outlet property="editAndCancelButton" destination="FZm-cn-rVn" id="PLZ-Sf-PDh"/>
                         <outlet property="emailLabel" destination="vUj-9d-amS" id="s9N-Tv-Eae"/>
                         <outlet property="emailTextField" destination="rR1-0U-cOW" id="ywA-Om-sMg"/>
@@ -431,6 +494,7 @@
                         <outlet property="hobbiesTextField" destination="r3x-Ga-kak" id="DDd-lc-2N2"/>
                         <outlet property="languagesTextField" destination="yGC-eZ-hpy" id="36h-Je-iL5"/>
                         <outlet property="lastNameTextField" destination="YNy-bA-QVZ" id="1jd-VX-cJo"/>
+                        <outlet property="netidTextField" destination="riM-7W-jAP" id="IyV-9Y-5f4"/>
                         <outlet property="photoImageView" destination="0K9-Q7-KPd" id="wF8-5S-5ad"/>
                         <outlet property="roleTextField" destination="B61-hW-uLd" id="id8-2B-yz1"/>
                         <outlet property="saveButtonView" destination="9KP-PM-flZ" id="IfA-VP-D8z"/>
@@ -549,7 +613,7 @@
     <resources>
         <image name="No photo" width="204" height="204"/>
         <namedColor name="BrandBlue">
-            <color red="0.24699999392032623" green="0.44699999690055847" blue="0.68599998950958252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.24313725490196078" green="0.44313725490196076" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BrandDarkBlue">
             <color red="0.067000001668930054" green="0.17599999904632568" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

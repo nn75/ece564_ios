@@ -43,6 +43,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var netidTextField: UITextField!
     @IBOutlet weak var genderTextField: UITextField!
     
     @IBOutlet weak var emailLabel: UILabel!
@@ -51,6 +52,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     @IBOutlet weak var roleTextField: UITextField!
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var degreeTextField: UITextField!
+    @IBOutlet weak var departmentTextField: UITextField!
     @IBOutlet weak var hobbiesTextField: UITextField!
     @IBOutlet weak var languagesTextField: UITextField!
     
@@ -151,6 +153,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         fullNameLabel.text = "\(person.firstName) \(person.lastName)"
         firstNameTextField.text = person.firstName
         lastNameTextField.text = person.lastName
+        netidTextField.text = person.netid
         genderTextField.text = person.gender == .Male ? "Male" : "Female"
         emailLabel.text = person.email
         emailTextField.text = person.email
@@ -164,6 +167,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         }
         fromTextField.text = person.whereFrom
         degreeTextField.text = person.degree
+        departmentTextField.text = person.department
         hobbiesTextField.text = person.hobbies.joined(separator: ",")
         languagesTextField.text = person.languages.joined(separator: ",")
         teamTextField.text = person.team
@@ -177,11 +181,13 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         //Invalid case 1: Empty fields
         if  ((firstNameTextField.text?.isEmpty)!
             || (lastNameTextField.text?.isEmpty)!
+            || (netidTextField.text?.isEmpty)!
             || (genderTextField.text?.isEmpty)!
             || (emailTextField.text?.isEmpty)!
             || (roleTextField.text?.isEmpty)!
             || (fromTextField.text?.isEmpty)!
-            || (degreeTextField.text?.isEmpty)!) {
+            || (degreeTextField.text?.isEmpty)!
+            || (departmentTextField.text?.isEmpty)!) {
             showAlert(title: "Save failed", message: "All fields with * are required!")
             return false
         }
@@ -233,9 +239,11 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         person.picture = photoImageView.image?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? ""
         person.firstName = firstNameTextField.text!
         person.lastName = lastNameTextField.text!
+        person.netid = netidTextField.text!
         person.whereFrom = fromTextField.text!
         person.email = emailTextField.text!
         person.degree = degreeTextField.text!
+        person.department = departmentTextField.text!
         person.team = teamTextField.text!
         person.hobbies = hobbies
         person.languages = languages
@@ -246,11 +254,13 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         photoImageView.isUserInteractionEnabled = state
         firstNameTextField.isDisabled(false)
         lastNameTextField.isDisabled(false)
+        netidTextField.isDisabled(false)
         genderTextField.isDisabled(state)
         emailTextField.isDisabled(state)
         roleTextField.isDisabled(state)
         fromTextField.isDisabled(state)
         degreeTextField.isDisabled(state)
+        departmentTextField.isDisabled(state)
         hobbiesTextField.isDisabled(state)
         languagesTextField.isDisabled(state)
         teamTextField.isDisabled(state)

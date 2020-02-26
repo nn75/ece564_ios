@@ -62,9 +62,11 @@ class DukePerson: NSObject, ECE564, Codable {
     var whereFrom = "Anywhere"
     var gender : Gender = .Male
     
+    var netid: String?
     var email: String?
     var role: DukeRole = .Student
     var degree: String = ""
+    var department: String?
     var hobbies: [String] = []
     var languages: [String] = []
     var team: String?
@@ -76,23 +78,27 @@ class DukePerson: NSObject, ECE564, Codable {
     
     init(f firstName: String,
          l lastName: String,
+         n netid: String,
          w whereFrom: String,
          g gender: Gender,
          e email: String,
          h hobbies : [String],
          r role : DukeRole,
-         d degree : String,
+         dg degree : String,
+         dp department: String,
          l languages : [String],
          t team: String,
          p picture: String) {
         self.firstName = firstName
         self.lastName = lastName
+        self.netid = netid
         self.whereFrom = whereFrom
         self.gender = gender
         self.email = email
         self.hobbies = hobbies
         self.role = role
         self.degree = degree
+        self.department = department
         self.languages = languages
         self.picture = picture
         self.team = team
@@ -161,78 +167,92 @@ class DukePerson: NSObject, ECE564, Codable {
 
 let RicTelford: DukePerson = DukePerson(f: "Ric",
                                         l: "Telford",
+                                        n: "rt113",
                                         w: "US",
                                         g: .Male,
                                         e: "rt113@duke.edu",
                                         h: ["Swimming", "Biking", "Hiking"],
                                         r: .Professor,
-                                        d: "BS",
+                                        dg: "BS",
+                                        dp: "ECE",
                                         l: ["Swift", "C", "C++"],
                                         t: "",
                                         p: UIImage(named: "Ric Telford")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let JingruGao: DukePerson = DukePerson(f: "Jingru",
                                        l: "Gao",
+                                       n: "jg404",
                                        w: "CN",
                                        g: .Female,
                                        e: "jg404o@duke.edu",
                                        h: ["Traveling", "Reading", "Movies"],
                                        r: .TA,
-                                       d: "MS",
+                                       dg: "MS",
+                                       dp: "ECE",
                                        l: ["Swift", "C++", "Python"],
                                        t: "",
                                        p: UIImage(named: "Jingru Gao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let HaohongZhao: DukePerson = DukePerson(f: "Haohong",
                                          l: "Zhao",
+                                         n: "hz147",
                                          w: "CN",
                                          g: .Male,
                                          e: "hz147@duke.edu",
                                          h: ["Reading", "Jogging"],
                                          r: .TA,
-                                         d: "MS",
+                                         dg: "MS",
+                                         dp: "ECE",
                                          l: ["Swift","Python"],
                                          t: "",
                                          p: UIImage(named: "Haohong Zhao")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let NanNi: DukePerson = DukePerson(f: "Nan",
                                    l: "Ni",
+                                   n: "nn75",
                                    w: "CN",
                                    g: .Female,
                                    e: "nn75@duke.edu",
                                    h: ["Traveling", "Playing online games", "Cardio workout"],
                                    r: .Student,
-                                   d: "MS",
+                                   dg: "MS",
+                                   dp: "ECE",
                                    l: ["C", "C++", "Swift"],
                                    t: "HFTP",
                                    p: UIImage(named: "Nan Ni")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let NiboYing: DukePerson = DukePerson(f: "Nibo",
                                       l: "Ying",
+                                      n: "ny38",
                                       w: "CN",
                                       g: .Male,
                                       e: "ny38@duke.edu",
                                       h: ["Basketball"],
                                       r: .Student,
-                                      d: "MS",
+                                      dg: "MS",
+                                      dp: "ECE",
                                       l: ["C++", "Swift"],
                                       t: "HFTP",
                                       p: UIImage(named: "Nibo Ying")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let ZihuiZheng: DukePerson = DukePerson(f: "Zihui",
                                         l: "Zheng",
+                                        n: "zz165",
                                         w: "CN",
                                         g: .Male,
                                         e: "zz165@duke.edu",
                                         h: ["Video games", "Workout", "Basketball"],
                                         r: .Student,
-                                        d: "MS",
+                                        dg: "MS",
+                                        dp: "ECE",
                                         l: ["C++", "Scala", "Swift"],
                                         t: "HFTP",
                                         p: UIImage(named: "Zihui Zheng")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")
 let KaiWang: DukePerson = DukePerson(f: "Kai",
                                      l: "Wang",
+                                     n: "kw283",
                                      w: "CN",
                                      g: .Male,
                                      e: "kw283@duke.edu",
                                      h: ["Traveling", "Playing online games", "Cardio workout"],
                                      r: .Student,
-                                     d: "MS",
+                                     dg: "MS",
+                                     dp: "ECE",
                                      l: ["C++", "Swift"],
                                      t: "HFTP",
                                      p: UIImage(named: "Kai Wang")?.resizeImage(resize: K.photoSize).scaleImage(scaleSize: K.scaleSize).base64ToString() ?? "")

@@ -9,7 +9,7 @@
 import UIKit
 
 class PersonTableViewController: UITableViewController {
-    
+
     @IBOutlet var personTableView: UITableView!
     
     //Pass to InformationViewController as a reference
@@ -53,6 +53,13 @@ class PersonTableViewController: UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    @IBAction func refreshData(_ sender: UIRefreshControl) {
+        print("Refreshing")
+        // Add your get function here
+        tableView.reloadData()
+        sender.endRefreshing()
     }
     
     /**
