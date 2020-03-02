@@ -64,7 +64,9 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         super.viewDidLoad()
         addPickersToView()
         addImagePickerToView()
+        hideKeyboardWhenTappedAround()
         
+        // Once role textfield changes, decide whether to show team textfield.
         roleTextField.addTarget(self, action: #selector(textFieldEditingDidChange(_:)), for: UIControl.Event.editingDidEnd)
         
         // Load information view according to add or edit mode.
@@ -78,8 +80,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
             editAndCancelButton.title = "Cancel"
             saveButtonView.isHidden = false
         }
-        
-        hideKeyboardWhenTappedAround()
+
     }
     
     // MARK: - For team
@@ -114,13 +115,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         addOrUpdateSuccess = addOrUpdatePerson()
         if addOrUpdateSuccess {
-            Alert.saveSuccessAlert(
-                on: self,
-                message: "Save person's information successfully",
-                actions: .saveSuccess(handler: {
-                    self.performSegue(withIdentifier: K.saveBackSegue, sender: self)
-                })
-            )
+            self.performSegue(withIdentifier: K.saveBackSegue, sender: self)
         } else {
             return
         }
@@ -155,7 +150,11 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         Fill textfields with person's information
      */
     func resetPersonInformation() {
-        photoImageView.image = person.picture.base64ToImage()
+        if let saveDecodedImage = person.picture.base64ToImage() {
+            photoImageView.image = saveDecodedImage
+        } else {
+            photoImageView.image = UIImage(named: "No photo")
+        }
         fullNameLabel.text = "\(person.firstName) \(person.lastName)"
         firstNameTextField.text = person.firstName
         lastNameTextField.text = person.lastName
@@ -194,14 +193,14 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
             || (fromTextField.text?.isEmpty)!
             || (degreeTextField.text?.isEmpty)!
             || (departmentTextField.text?.isEmpty)!) {
-            Alert.saveFailedAlert(on: self, message: "All fields with * are required!")
+            Alert.saveFailedAlert(on: self, message: "All fields with * are required")
             return false
         }
         
         //Invalid case 2: Person exists
-        let fullNameResult = dukePersonsArray.filter { $0.firstName == firstNameTextField.text! && $0.lastName == lastNameTextField.text! }
-        if mode == .Adding && !fullNameResult.isEmpty {
-            Alert.saveFailedAlert(on: self, message: "\(firstNameTextField.text!) \(lastNameTextField.text!) already exists in database!")
+        let netidLookupResult = dukePersonsArray.filter { $0.netid == netidTextField.text!}
+        if mode == .Adding && !netidLookupResult.isEmpty {
+            Alert.saveFailedAlert(on: self, message: "\(netidTextField.text!) already exists in database")
             return false
         }
         
@@ -244,9 +243,9 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     
     func isUserInteractive(_ state: Bool) {
         photoImageView.isUserInteractionEnabled = state
-        firstNameTextField.isDisabled(false)
-        lastNameTextField.isDisabled(false)
         netidTextField.isDisabled(false)
+        firstNameTextField.isDisabled(state)
+        lastNameTextField.isDisabled(state)
         genderTextField.isDisabled(state)
         emailTextField.isDisabled(state)
         roleTextField.isDisabled(state)
@@ -274,7 +273,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
     @objc func selectPhoto() {
         let choosePhotoAlert = UIAlertController(title: "Please Choose", message: "", preferredStyle: UIAlertController.Style.actionSheet)
         
-        let chooseFromAlbum = UIAlertAction(title: "From Album", style: UIAlertAction.Style.default, handler: funcChooseFromPhotoAlbum)
+        let chooseFromAlbum = UIAlertAction(title: "From Album", style: UIAlertAction.Style.default, handler: funcChooseFromAlbum)
         choosePhotoAlert.addAction(chooseFromAlbum)
         
         let chooseFromCamera = UIAlertAction(title: "Take Photo", style: UIAlertAction.Style.default, handler: funcChooseFromCamera)
@@ -285,7 +284,7 @@ class InformationViewController: UIViewController,UINavigationBarDelegate {
         present(choosePhotoAlert, animated: true, completion: nil)
     }
     
-    @IBAction func funcChooseFromPhotoAlbum(_ sender: Any){
+    @IBAction func funcChooseFromAlbum(_ sender: Any){
         let lib = UIImagePickerController.SourceType.photoLibrary
         let ok = UIImagePickerController.isSourceTypeAvailable(lib)
         if (!ok) {

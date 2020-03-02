@@ -12,8 +12,13 @@
 ### **2. Support communication**
 - Use HTTP / REST to send student information to a web server in the ECE 564 JSON Grammar. Also get student information from the server..
 - Get1: Pull down list to get the latest information from the server.
+
+<div align=center><img src="Sources/pull_to_refresh.gif" width="20%" height="20%">
+</div>
+
 - Get2: Get the information from the server once the user logs in.
 - Get3: If the "Get" failed, pop up a "Load Failed" alert with the reason.
+- Get4: If it is the first time to run app on your machine, and the "Get" after login failed, app will display the default people.
 - Post1: If the person being added or edited has the same netid with the authenticated user, his/her information will be send to server once the "Save" button is pressed.
 - Post2: If the "Post" failed, pop up a "Post Failed" alert with the reason.
 
@@ -26,9 +31,9 @@
 
 ### **5. Others**
 - A clean project in Xcode.  Project Name, bundle name, etc. all be our team name -- “HftpHW6”. 
-- Clean, well-structured code with no compiler errors or warnings
+- Clean, well-structured code with no compiler errors or warnings.
 - Comments in the code.
-- Nice App Icon
+- Nice App Icon.
 - Nice looking Table Cells with things like background color, image, subtext line, pictures, fonts, etc.
 - Team function support.
 - Display and add "email" address on Information View.

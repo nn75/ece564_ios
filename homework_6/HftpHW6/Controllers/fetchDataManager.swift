@@ -1,5 +1,5 @@
 //
-//  fetchDataManager.swift
+//  FetchDataManager.swift
 //  HftpHW6
 //
 //  Created by Kai Wang on 2/27/20.

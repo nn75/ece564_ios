@@ -33,9 +33,12 @@ extension UIImage {
 
 //MARK: - Decode: Convert String into UIImage
 extension String {
-    public func base64ToImage() -> UIImage {
-        let dataDecode = Data(base64Encoded: self, options: .ignoreUnknownCharacters)!
-        return UIImage(data: dataDecode)!
+    public func base64ToImage() -> UIImage? {
+        if let decodedData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) {
+            return UIImage(data: decodedData)
+        } else {
+            return nil
+        }
     }
 }
 

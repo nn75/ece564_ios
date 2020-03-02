@@ -46,9 +46,9 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
         titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
         
-        //
-        // Call tapHeader when tapping on this header
-        //
+        /**
+            Call tapHeader when tapping on this header
+         */
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeader.tapHeader(_:))))
     }
     
@@ -56,9 +56,9 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //
-    // Trigger toggle section when tapping on the header
-    //
+    /**
+        Trigger toggle section when tapping on the header
+     */
     @objc func tapHeader(_ gestureRecognizer: UITapGestureRecognizer) {
         guard let cell = gestureRecognizer.view as? CollapsibleTableViewHeader else {
             return
@@ -68,9 +68,9 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
     }
     
     func setCollapsed(_ collapsed: Bool) {
-        //
-        // Animate the arrow rotation (see Extensions.swf)
-        //
+        /**
+            Animate the arrow rotation (see Extensions.swift)
+         */
         arrowLabel.rotate(collapsed ? 0.0 : .pi / 2)
     }
 

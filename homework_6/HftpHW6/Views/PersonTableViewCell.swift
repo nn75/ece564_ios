@@ -30,7 +30,11 @@ class PersonTableViewCell: UITableViewCell {
         personDescription.text = personInCell?.description
         
         if let safePersonInCell = personInCell {
-            photoView.image = safePersonInCell.picture.base64ToImage()
+            if let safeImage = safePersonInCell.picture.base64ToImage() {
+                photoView.image = safeImage
+            } else {
+                photoView.image = UIImage(named: "No photo")
+            }
         } else {
             print("Cell display error")
         }

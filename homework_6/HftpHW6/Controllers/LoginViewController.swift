@@ -48,7 +48,7 @@ extension LoginViewController: LoginAlertDelegate {
     
     func onSuccess(_ loginAlertController: LoginAlert, didFinishSucceededWith status: LoginResults, netidLookupResult: NetidLookupResultData?, netidLookupResultRawData: Data?, cookies: [HTTPCookie]?, lastLoginTime: Date) {
         // succeeded, extract netidLookupResult.id and netidLookupResult.password for your server credential
-        print("\(netidLookupResult?.id ?? "")")
+        print("Current user's netid is: \(netidLookupResult?.id ?? "")")
         CurrentUserData = netidLookupResult
         let httprequest = urlGET(true, nil, self)
         DispatchQueue.main.sync {

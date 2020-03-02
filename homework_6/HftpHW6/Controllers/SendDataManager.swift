@@ -46,7 +46,7 @@ func RESTPost(_ currentPerson: DukePerson, vc: UIViewController) {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("\(error!)")
-                Alert.postFailedAlert(on: vc, message: "cannot connect to the server")
+                Alert.postFailedAlert(on: vc, message: "Cannot connect to the server")
                 return
             }
             //receive response

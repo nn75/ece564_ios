@@ -22,6 +22,8 @@
 		3F3E1EBA23E690D100A04C9D /* CollapsibleTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E1EB923E690D100A04C9D /* CollapsibleTableViewHeader.swift */; };
 		3F3E1EBC23E6916F00A04C9D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E1EBB23E6916F00A04C9D /* Extensions.swift */; };
 		3F3E1EBE23EC7A7200A04C9D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E1EBD23EC7A7200A04C9D /* Constants.swift */; };
+		3F3EFA5C240B3D2A00E9CCD3 /* shibauthframework2019.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F62A57B24035D930026BEAB /* shibauthframework2019.framework */; };
+		3F3EFA5D240B3D2A00E9CCD3 /* shibauthframework2019.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F62A57B24035D930026BEAB /* shibauthframework2019.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F42816023F098B500A914B0 /* HobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F42815E23F098B500A914B0 /* HobbyViewController.swift */; };
 		3F42816323F0DBFB00A914B0 /* Airplane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F42816223F0DBFB00A914B0 /* Airplane.swift */; };
 		3F42816923F0FD9500A914B0 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F42816823F0FD9500A914B0 /* PageViewController.swift */; };
@@ -34,24 +36,22 @@
 		3F5F54A524046B460011C093 /* Gun_shot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F5F54A324046B460011C093 /* Gun_shot.mp3 */; };
 		3F5F54AC2404828B0011C093 /* KaiHobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5F54AB2404828B0011C093 /* KaiHobbyViewController.swift */; };
 		3F5F54AF240482A00011C093 /* ZihuiHobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5F54AE240482A00011C093 /* ZihuiHobbyViewController.swift */; };
-		3F62A57C24035D940026BEAB /* shibauthframework2019.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F62A57B24035D930026BEAB /* shibauthframework2019.framework */; };
-		3F62A57D24035D940026BEAB /* shibauthframework2019.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F62A57B24035D930026BEAB /* shibauthframework2019.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F62A58024035F7D0026BEAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62A57F24035F7D0026BEAB /* LoginViewController.swift */; };
 		3F62A5832407AA330026BEAB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62A5822407AA330026BEAB /* Alert.swift */; };
-		BA823F77240861B800FBA700 /* fetchDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA823F76240861B800FBA700 /* fetchDataManager.swift */; };
+		BA823F77240861B800FBA700 /* FetchDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA823F76240861B800FBA700 /* FetchDataManager.swift */; };
 		BAFCB0E0240625AA005B3EA3 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFCB0DF240625AA005B3EA3 /* ClockView.swift */; };
 		BAFCB0E224062644005B3EA3 /* game_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BAFCB0E124062644005B3EA3 /* game_music.mp3 */; };
 		BAFCB0E42406264A005B3EA3 /* Game.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAFCB0E32406264A005B3EA3 /* Game.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3F62A57E24035D940026BEAB /* Embed Frameworks */ = {
+		3F3EFA5E240B3D2A00E9CCD3 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3F62A57D24035D940026BEAB /* shibauthframework2019.framework in Embed Frameworks */,
+				3F3EFA5D240B3D2A00E9CCD3 /* shibauthframework2019.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,7 +92,7 @@
 		3F62A57B24035D930026BEAB /* shibauthframework2019.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shibauthframework2019.framework; sourceTree = "<group>"; };
 		3F62A57F24035F7D0026BEAB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F62A5822407AA330026BEAB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		BA823F76240861B800FBA700 /* fetchDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fetchDataManager.swift; sourceTree = "<group>"; };
+		BA823F76240861B800FBA700 /* FetchDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchDataManager.swift; sourceTree = "<group>"; };
 		BAFCB0DF240625AA005B3EA3 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		BAFCB0E124062644005B3EA3 /* game_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_music.mp3; sourceTree = "<group>"; };
 		BAFCB0E32406264A005B3EA3 /* Game.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Game.jpg; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F62A57C24035D940026BEAB /* shibauthframework2019.framework in Frameworks */,
+				3F3EFA5C240B3D2A00E9CCD3 /* shibauthframework2019.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +174,7 @@
 				3F42816823F0FD9500A914B0 /* PageViewController.swift */,
 				3F42816A23F124B700A914B0 /* NavigationViewController.swift */,
 				3F62A5822407AA330026BEAB /* Alert.swift */,
-				BA823F76240861B800FBA700 /* fetchDataManager.swift */,
+				BA823F76240861B800FBA700 /* FetchDataManager.swift */,
 				12E289AA2407324700F41CB3 /* SendDataManager.swift */,
 			);
 			path = Controllers;
@@ -251,7 +251,7 @@
 				1877964C23CA368A00AEE3C8 /* Sources */,
 				1877964D23CA368A00AEE3C8 /* Frameworks */,
 				1877964E23CA368A00AEE3C8 /* Resources */,
-				3F62A57E24035D940026BEAB /* Embed Frameworks */,
+				3F3EFA5E240B3D2A00E9CCD3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,7 +328,7 @@
 				3F42816023F098B500A914B0 /* HobbyViewController.swift in Sources */,
 				3F62A5832407AA330026BEAB /* Alert.swift in Sources */,
 				3F3E1EB223E42C0000A04C9D /* DukePerson.swift in Sources */,
-				BA823F77240861B800FBA700 /* fetchDataManager.swift in Sources */,
+				BA823F77240861B800FBA700 /* FetchDataManager.swift in Sources */,
 				3F42817123F2251300A914B0 /* Sun.swift in Sources */,
 				3F3E1EBC23E6916F00A04C9D /* Extensions.swift in Sources */,
 				1877965423CA368A00AEE3C8 /* AppDelegate.swift in Sources */,
@@ -487,7 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VX23B5Y4A;
+				DEVELOPMENT_TEAM = U6J58C8CJT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -497,7 +497,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.HftpHW6.nn75;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.HftpHW6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -509,7 +509,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VX23B5Y4A;
+				DEVELOPMENT_TEAM = U6J58C8CJT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -519,7 +519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.HftpHW6.nn75;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.HftpHW6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

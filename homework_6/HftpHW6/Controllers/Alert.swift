@@ -14,7 +14,6 @@ struct Alert {
     static let loginFailedAlertTitle = "Login Failed"
     static let loadFailedAlertTitle = "Load Failed"
     static let saveFailedAlertTitle = "Save Failed"
-    static let saveSuccessAlertTitle = "Save Success"
     static let loginInProgressAlertTitle = "Authenticating"
     static let postFailedAlertTitle = "Post Failed"
     
@@ -46,11 +45,6 @@ struct Alert {
     //Alert: save failure alert
     static func saveFailedAlert(on vc: UIViewController, message: String){
         let _ = showAlert(on: vc, title: saveFailedAlertTitle, message: message, with: Action.saveFailed)
-    }
-    
-    //Alert: save success alert
-    static func saveSuccessAlert(on vc: UIViewController, message: String, actions: Alert.Action) {
-        let _ = showAlert(on: vc, title: saveSuccessAlertTitle, message: message, with: actions)
     }
     
     //Alert: post failure alert

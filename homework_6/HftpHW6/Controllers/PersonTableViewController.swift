@@ -57,14 +57,13 @@ class PersonTableViewController: UITableViewController {
     }
     
     @IBAction func refreshData(_ sender: UIRefreshControl) {
-        print("Refreshing")
-        // Add your get function here
+        print("Refreshing...")
         let httprequest = urlGET(false, sender, self)
         httprequest.resume()
     }
     
     /**
-        If DukePersonJSONfile exists, load;
+        If DukePersonJSONfile exists, load data from it;
         If not, build new file and save data to it.
      */
     func loadInitialData() {
@@ -77,10 +76,16 @@ class PersonTableViewController: UITableViewController {
     }
     
     /**
-        Add persons in flat array to section for front-end display
+        1) Save data to local file
+        2) Add persons in flat array to section struct for front-end display
      */
     func loadDukePersonSections() {
-        let _ = DukePerson.saveDukePersonInfo(dukePersonsArray)
+        //Save data to local file
+        if !DukePerson.saveDukePersonInfo(dukePersonsArray) {
+            Alert.saveFailedAlert(on: self, message: "Save data to local file failed")
+        }
+        
+        //Add person in flat array to section
         for i in (0 ... dukePersonsSection.count - 1).reversed() {
             if dukePersonsSection[i].name == "Professor" || dukePersonsSection[i].name == "TA" || dukePersonsSection[i].name == "Student" {
                 dukePersonsSection[i].dukePersons.removeAll()
@@ -142,7 +147,7 @@ class PersonTableViewController: UITableViewController {
                     informationVC.teamHide = true
                 }
             default:
-                print("Error: prepare segue")
+                print("Prepare animation segue")
             }
         }
     }
@@ -198,7 +203,8 @@ class PersonTableViewController: UITableViewController {
                 return doesCategoryMatch
             } else {
                 return doesCategoryMatch
-                    && (p.description.lowercased().contains(searchText.lowercased()) || p.gender.rawValue.lowercased().isEqual(searchText.lowercased())
+                    && (p.description.lowercased().contains(searchText.lowercased()) || p.gender.rawValue.lowercased().isEqual(searchText.lowercased()) ||
+                        p.netid?.isEqual(searchText.lowercased()) ?? false
                 )
             }
         })
@@ -322,7 +328,7 @@ extension PersonTableViewController {
                 self.dukePersonsSection[indexPath.section].dukePersons.remove(at: indexPath.row)
             }
             
-            dukePersonsArray.removeAll{ $0.firstName == personToDelete.firstName && $0.lastName == personToDelete.lastName}
+            dukePersonsArray.removeAll{ $0.netid == personToDelete.netid }
             self.loadDukePersonSections()
             
             tableView.reloadData()
