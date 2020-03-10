@@ -9,9 +9,19 @@
 import Foundation
 import UIKit
 
+/*** Input:
+*   isLogin: Bool. Use to differ between segue from login and from fresh
+* sender: UIRefreshControl.
+* vc: UIViewController. The UiViewController which call this function
+**** Output:
+*       A URLSessionTask
+*   This function fetch the information throw HTTP Requst
+***/
+
 func urlGET(_ isLogin: Bool, _ sender: UIRefreshControl? = nil, _ vc: UIViewController) -> URLSessionTask{
     let url = URL(string: "https://rt113-dt01.egr.duke.edu:5640/b64entries")!
     
+    // create the request
     let httprequest = URLSession.shared.dataTask(with: url){
         (data, response, error) in
         if error != nil {
@@ -23,16 +33,25 @@ func urlGET(_ isLogin: Bool, _ sender: UIRefreshControl? = nil, _ vc: UIViewCont
                     dukePersonsArray = []
                     
                     let list = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
+                    
+                    //parse the data
                     fetchData(list!)
+                    //save the data in local
                     let _ = DukePerson.saveDukePersonInfo(dukePersonsArray)
+                    
+                    //If from the Login segue
                     if (isLogin) {
                         DispatchQueue.main.async {
                             let actionController = vc as! LoginViewController
+                            
+                            // navigate to main View
                             actionController.performSegue(withIdentifier: K.loginSegue, sender: vc)
                         }
                     } else {
+                        // If the RefreshController call the function
                         DispatchQueue.main.async {
                             let actionController = vc as! PersonTableViewController
+                            //reload the view
                             actionController.loadDukePersonSections()
                             actionController.tableView.reloadData()
                             sender!.endRefreshing()
@@ -49,6 +68,12 @@ func urlGET(_ isLogin: Bool, _ sender: UIRefreshControl? = nil, _ vc: UIViewCont
     return httprequest
     
 }
+
+/*** Input:
+*   data: [[String]]. The intial data from server
+*
+*   This function fetch the information from HTTP Requst body and save into dukePerson list
+***/
 
 func fetchData(_ data:[[String: Any]]) {
     for person in data {
@@ -113,6 +138,15 @@ func fetchData(_ data:[[String: Any]]) {
         dukePersonsArray.append(getPerson)
     }
 }
+
+/*** Input:
+* error: Error? Error message
+*  isLogin: Bool. Use to differ between segue from login and from fresh
+* sender: UIRefreshControl.
+* vc: UIViewController. The UiViewController which call this function
+*
+*   This function uses internal pop-up window function to show the error message
+***/
 
 func loadErrorHandling(_ error: Error?, _ isLogin: Bool, _ vc: UIViewController, _ sender: UIRefreshControl? = nil) {
     

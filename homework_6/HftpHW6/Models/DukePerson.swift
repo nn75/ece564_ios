@@ -112,10 +112,10 @@ class DukePerson: NSObject, ECE564, Codable {
         let thirdSentence = "When not in class, " + firstName + " enjoys " + hobbies.joined(separator: ", ") + ". \n"
         
         var outputString = firstSentence
-        if languages[0] != "" {
+        if languages.count > 0 {
             outputString += secondSentence
         }
-        if hobbies[0] != "" {
+        if hobbies.count > 0 {
             outputString += thirdSentence
         }
         return outputString
